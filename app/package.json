@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "express": "^4.16.3",
-    "pg": "^7.4.1"
+    "pg": "^7.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.3",
+    "sequelize-cli": "^4.0.0"
   },
   "scripts": {
     "start": "node app.js",
     "test": "ENV=test mocha --reporter spec --recursive test/ --exit",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "migration": "sequelize db:migrate"
   }
 }

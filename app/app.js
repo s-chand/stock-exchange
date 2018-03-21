@@ -1,6 +1,7 @@
 const app = require("express");
 const cluster = require('cluster');
 const {receiveRequest} = require("./exchange/index");
+const db = require('./models')
 
 const PORT = process.env.PORT || 3000
 
@@ -18,10 +19,12 @@ if(cluster.isMaster){
 }
 else {
     const app = require('express')();
+
     app.get('/api', (request, response) => {
         receiveRequest(request, response)
     });
     app.listen(PORT, () => {
+        db.sequelize.sync()
         console.log(`Exchange API is listening on PORT ${PORT} and process Id ${process.pid}`)
     });
     console.log(`Worker ${process.pid}`);

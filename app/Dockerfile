@@ -12,5 +12,9 @@ RUN mkdir -p ${WORKDIR} && cp -a /tmp/node_modules ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 COPY . .
-EXPOSE ${PORT}
-ENTRYPOINT [ "npm", "start" ]
+RUN ls -al
+
+COPY ./config/entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
