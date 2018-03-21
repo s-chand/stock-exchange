@@ -16,22 +16,25 @@ module.exports = {
       "Companies",
       [
         {
-          country: "US,FR",
-          budget: 1,
-          bid: 10, // in cents
-          category: "Automobile,Finance"
+          CompanyID: "C1",
+          Countries: "US,FR",
+          Budget: 1,
+          Bid: 10, // in cents
+          Category: "Automobile,Finance"
         },
         {
-          country: "IN,US",
-          budget: 2,
-          bid: 30, // in cents
-          category: "IT,Finance"
+          CompanyID: "C2",
+          Countries: "IN,US",
+          Budget: 2,
+          Bid: 30, // in cents
+          Category: "IT,Finance"
         },
         {
-          country: "US,RU",
-          budget: 3,
-          bid: 5,
-          category: "Automobile,IT"
+          CompanyID: "C3",
+          Countries: "US,RU",
+          Budget: 3,
+          Bid: 5,
+          Category: "Automobile,IT"
         }
       ],
       {}

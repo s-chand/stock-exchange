@@ -8,16 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      country: {
+      CompanyID: {
         type: Sequelize.STRING
       },
-      budget: {
+      Countries: {
+        type: Sequelize.STRING
+      },
+      Budget: {
         type: Sequelize.FLOAT
       },
-      bid: {
+      Bid: {
         type: Sequelize.FLOAT
       },
-      category: {
+      Category: {
         type: Sequelize.STRING
       },
       createdAt: {
