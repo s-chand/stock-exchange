@@ -16,10 +16,6 @@ const receiveRequest = (req, res) => {
   .catch(err => {
     res.status(400).json(err)
   })
-  // const {countrycode, Category, BaseBid} = req.query
-  // const validationStatus = validate(countrycode, Category, BaseBid)
-  // if(!validationStatus) return res.status(400).json({message:'Missing data'})
-  //  res.status(200).json({countrycode, Category, BaseBid})
 };
 
 

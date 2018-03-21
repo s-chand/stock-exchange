@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "ENV=test mocha --reporter spec --recursive test/ --exit",
+    "test": "ENV=test mocha --reporter spec --recursive test/",
     "dev": "nodemon app.js",
     "migration": "sequelize db:migrate",
     "seed": "sequelize db:seed:all"
