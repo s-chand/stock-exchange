@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     budget: DataTypes.FLOAT,
     bid: DataTypes.FLOAT,
     category: DataTypes.STRING
-  }, {});
+  }, {timestamps: true});
   Company.associate = function(models) {
     // associations can be defined here
   };

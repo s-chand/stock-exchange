@@ -19,6 +19,7 @@ services:
   exchange:
     build:
       context: app
+    restart: always
     env_file: .env
     links:
       - postgres:postgres

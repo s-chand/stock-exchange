@@ -20,6 +20,7 @@
     "start": "node app.js",
     "test": "ENV=test mocha --reporter spec --recursive test/ --exit",
     "dev": "nodemon app.js",
-    "migration": "sequelize db:migrate"
+    "migration": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all"
   }
 }

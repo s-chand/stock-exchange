@@ -13,25 +13,25 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert(
-      "Company",
+      "Companies",
       [
         {
-          country: "US, FR",
+          country: "US,FR",
           budget: 1,
           bid: 10, // in cents
-          category: "Automobile, Finance"
+          category: "Automobile,Finance"
         },
         {
-          country: "IN, US",
+          country: "IN,US",
           budget: 2,
           bid: 30, // in cents
-          category: "IT, Finance"
+          category: "IT,Finance"
         },
         {
-          country: ["US, RU"],
+          country: "US,RU",
           budget: 3,
           bid: 5,
-          category: "Automobile, IT"
+          category: "Automobile,IT"
         }
       ],
       {}
@@ -46,6 +46,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete("Company", null, {});
+    return queryInterface.bulkDelete("Companies", null, {});
   }
 };
