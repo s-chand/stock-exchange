@@ -8,6 +8,7 @@ const url = require('url');
  */
 const receiveRequest = (req, res) => {
   // Extract the components suppplied as query parameters
+  console.log(`Acknowledging request from ${process.pid} and ${JSON.stringify(req.query)}`)
   const {countrycode, Category, BaseBid} = req.query
   const validationStatus = validate(countrycode, Category, BaseBid)
   if(!validationStatus) return res.status(400).json({message:'Missing data'})

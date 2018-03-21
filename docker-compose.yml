@@ -10,7 +10,7 @@ services:
       - "5432"
     volumes:
       - ./bin/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-      - db-data: /var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     networks: 
       local:
         aliases:
@@ -19,11 +19,13 @@ services:
   exchange:
     build:
       context: app
-    env_file: .env
+    env_file: ./app/.env
     networks:
       local:
         aliases:
           - exchange
+    ports:
+      - "3000:3000"
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
