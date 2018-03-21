@@ -29,49 +29,40 @@ const mockDb = {
 };
 
 describe("Stock Exchange Logic Tests ", () => {
-
   describe(" == Base Targeting tests ==", () => {
-
     it("should match C1 and C3 only for base targeting", () => {
-        
-        const sampleData = {
-            countrycode: "US",
-            baseBid: "10",
-            category: "Automobile"
-          };
+      const sampleData = {
+        countrycode: "US",
+        baseBid: "10",
+        category: "Automobile"
+      };
 
       return exchangeLogic.checkBaseTargeting(sampleData).then(result => {
-
         expect(result).to.equal("{C1, Passed}, {C2, Failed}, {C3, Passed}");
-
       });
 
-    it("should match C2 only for base targeting", ()=>{
-        
+      it("should match C2 only for base targeting", () => {
         const sampleData = {
-            countrycode: "IN",
-            baseBid: "10",
-            category: "Finance" 
-        }
+          countrycode: "IN",
+          baseBid: "10",
+          category: "Finance"
+        };
 
         return exchangeLogic.checkBaseTargeting(sampleData).then(result => {
-            expect(result).to.equal("{C1, Failed}, {C2, Passed}, {C3, Failed}");
-        })
-    });
+          expect(result).to.equal("{C1, Failed}, {C2, Passed}, {C3, Failed}");
+        });
+      });
 
-    it("should match C3 only for base targeting", ()=>{
+      it("should match C3 only for base targeting", () => {
         const sampleData = {
-            countrycode: "RU",
-            baseBid: "10",
-            category: "Automobile"
-          };
+          countrycode: "RU",
+          baseBid: "10",
+          category: "Automobile"
+        };
         return exchangeLogic.checkBaseTargeting(sampleData).then(result => {
-
-            expect(result).to.equal("{C1, Failed}, {C2, Failed}, {C3, Passed}");
-
-        })  
-    })
+          expect(result).to.equal("{C1, Failed}, {C2, Failed}, {C3, Passed}");
+        });
+      });
     });
-
   });
 });
