@@ -1,0 +1,18 @@
+{
+  "name": "stock-exchange",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.4"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "pg": "^7.4.1"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
