@@ -8,7 +8,6 @@ const url = require('url');
  */
 const receiveRequest = (req, res) => {
   // Extract the components suppplied as query parameters
-  console.log(`Worker ${process.pid}`)
   const {countrycode, Category, BaseBid} = req.query
   const validationStatus = validate(countrycode, Category, BaseBid)
   if(!validationStatus) return res.status(400).json({message:'Missing data'})
