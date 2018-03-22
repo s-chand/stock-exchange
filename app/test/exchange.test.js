@@ -92,10 +92,10 @@ describe("Stock Exchange Logic Unit Tests ", () => {
     });
 
     describe(" == Budget Check Tests ==", () => {
-        it("should match budget for C1 and C3 only", () => {
+        it("should match budget for C2 and C3 only", () => {
             const sampleData = {
                 countrycode: "RU",
-                baseBid: "10",
+                baseBid: "110",
                 category: "Automobile"
             };
 
@@ -104,11 +104,11 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                 sampleData.baseBid
             );
             expect(outcome).to.equal(
-                "BudgetCheck: {C1, Passed},{C2, Failed},{C3, Passed}"
+                "BudgetCheck: {C1, Failed},{C2, Passed},{C3, Passed}"
             );
         });
 
-        it("should match budget for C1 only", () => {
+        it("should match budget for all companies", () => {
             const sampleData = {
                 countrycode: "RU",
                 baseBid: "10",
@@ -119,13 +119,13 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                 sampleData.baseBid
             );
             expect(outcome).to.equal(
-                "BudgetCheck: {C1, Passed},{C2, Failed},{C3, Passed}"
+                "BudgetCheck: {C1, Passed},{C2, Passed},{C3, Passed}"
             );
         });
         it("should fail to match budget for any company", () => {
             const sampleData = {
                 countrycode: "NG",
-                baseBid: "10", // in cents
+                baseBid: "55000", // in cents
                 category: "Food"
             };
             const outcome = exchangeLogic.checkBudget(

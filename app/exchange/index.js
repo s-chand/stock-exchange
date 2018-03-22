@@ -27,11 +27,9 @@ const receiveRequest = (req, res) => {
     );
     const { countrycode, Category, BaseBid } = req.query;
     if (!validate)
-        return res
-            .status(400)
-            .json({
-                message: "Incorrect data supplied. Please check and retry"
-            });
+        return res.status(400).json({
+            message: "Incorrect data supplied. Please check and retry"
+        });
     company
         .findAll({})
         .then(result => {
@@ -69,7 +67,21 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
         return "No Companies Passed from Targeting";
     return logger(outcome, checks.BASETARGETING);
 };
-const checkBudget = () => {};
+const checkBudget = (companies, bid) => {
+    let failedCount = 0;
+    const outcome = companies.map(company => {
+        const hasBudget = compareBudgetToBid(company, bid);
+        if (hasBudget === resultStates.PASSED) {
+            return `{${company.CompanyID}, ${resultStates.PASSED}}`;
+        } else {
+            failedCount++;
+            return `{${company.CompanyID}, ${resultStates.FAILED}}`;
+        }
+    });
+    if (failedCount === companies.length)
+        return "No Companies Passed from Budget";
+    return logger(outcome, checks.BUDGETCHECK);
+};
 const checkBaseBid = () => {};
 const shortListCompany = () => {};
 const reduceBudget = () => {};
@@ -92,6 +104,14 @@ const convertCentsToDollars = cents => {
     // 100 cents = 1 dollar e.g 10 cents => 10/100 dollars
     const unit = 100;
     return cents / unit;
+};
+
+const compareBudgetToBid = (company, bid) => {
+    const bidInFloat = parseFloat(bid);
+    const budgetDollarsInFloat = parseFloat(company.Budget);
+    const bidInDollars = convertCentsToDollars(bidInFloat);
+    const result = budgetDollarsInFloat - bidInDollars > 0;
+    return result ? resultStates.PASSED : resultStates.FAILED;
 };
 module.exports = {
     receiveRequest,
