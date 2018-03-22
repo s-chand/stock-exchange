@@ -21,7 +21,7 @@ const mockDb = [
         CompanyID: "C3",
         Countries: "US, RU",
         Budget: 3,
-        Bid: 5,
+        Bid: 5, // in cents
         Category: "Automobile, IT"
     }
 ];
@@ -92,7 +92,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
     });
 
     describe(" == BaseBid Check Tests ==", () => {
-        it("should match baseBid check for C2 and C3 only", () => {
+        it("should match baseBid check for C3 only", () => {
             const sampleData = {
                 countrycode: "RU",
                 baseBid: "9",
@@ -103,21 +103,30 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                 mockDb,
                 sampleData.baseBid
             );
+            /**
+             * This should pass because only C3 in test data  has a bid more than the company Bid.
+             * C1 has a baseBid of 10, C2 a base bid of 30.
+             * They are both higher than 9
+             */
             expect(outcome).to.equal(
-                "BaseBid: {C1, Failed},{C2, Passed},{C3, Passed}"
+                "BaseBid: {C1, Failed},{C2, Failed},{C3, Passed}"
             );
         });
 
         it("should match baseBid for all companies", () => {
             const sampleData = {
-                countrycode: "RU",
-                baseBid: "10",
+                countrycode: "US",
+                baseBid: "50",
                 category: "Automobile"
             };
             const outcome = exchangeLogic.checkBaseBid(
                 mockDb,
                 sampleData.baseBid
             );
+            /**
+             * This should pass all companies available as the highest in the data is 30
+             * whereas we are passing in a 50
+             */
             expect(outcome).to.equal(
                 "BaseBid: {C1, Passed},{C2, Passed},{C3, Passed}"
             );
@@ -125,27 +134,25 @@ describe("Stock Exchange Logic Unit Tests ", () => {
         it("should fail to match baseBid for any company", () => {
             const sampleData = {
                 countrycode: "NG",
-                baseBid: "55000", // in cents
+                baseBid: "1", // in cents
                 category: "Food"
             };
             const outcome = exchangeLogic.checkBaseBid(
                 mockDb,
                 sampleData.baseBid
             );
+            /**
+             * This should fail for all companies available because it's base bid offering is lower than that available for all companies present.
+             */
             expect(outcome).to.equal("No Companies Passed from BaseBid check");
         });
     });
 
     describe(" == Budget Check Tests ==", () => {
-        it("should pass budget check for C1 and C2", () => {
-            const sampleData = {
-                countrycode: "RU",
-                baseBid: "10",
-                category: "Automobile"
-            };
-            const outcome = exchangeLogic.checkBudget(mockDb, sampleData);
+        it("should pass budget check for all companies", () => {
+            const outcome = exchangeLogic.checkBudget(mockDb);
             expect(outcome).to.equal(
-                "BaseBid: {C1, Passed}, {C2, Failed}, {C3, Passed}"
+                "BudgetCheck: {C1, Passed}, {C2, Passed}, {C3, Passed}"
             );
         });
     });

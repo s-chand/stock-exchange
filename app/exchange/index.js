@@ -79,10 +79,10 @@ const checkBaseBid = (companies, bid) => {
         }
     });
     if (failedCount === companies.length)
-        return "No Companies Passed from Budget";
-    return logger(outcome, checks.BUDGETCHECK);
+        return "No Companies Passed from BaseBid check";
+    return logger(outcome, checks.BASEBID);
 };
-const checkBudget = (companies) => {};
+const checkBudget = companies => {};
 const shortListCompany = () => {};
 const reduceBudget = () => {};
 const validate = (countryCode, Category, BaseBid) => {
@@ -111,6 +111,7 @@ const compareBidToBaseBid = (company, bid) => {
     const companyBidInFloat = parseFloat(company.Bid);
 
     const result = companyBidInFloat < bidInFloat;
+
     return result ? resultStates.PASSED : resultStates.FAILED;
 };
 module.exports = {
