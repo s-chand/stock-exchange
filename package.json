@@ -1,0 +1,15 @@
+{
+  "name": "stock-exchange",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Samuel Okoroafor <samuel.i.okoroafor@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jshint": "^2.9.5"
+  },
+  "scripts": {
+    "test": "docker-compose up -d; docker-compose exec exchange npm test ",
+    "seed": "docker-compose exec exchange npm seed",
+    "start": "docker-compose up"
+  }
+}
