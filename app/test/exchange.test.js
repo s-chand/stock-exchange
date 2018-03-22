@@ -2,31 +2,29 @@ const chai = require("chai");
 const expect = chai.expect;
 const exchangeLogic = require("../exchange/index");
 
-const mockDb = {
-  rows: [
+const mockDb = [
     {
-      id: "C1",
-      country: "US, FR",
-      budget: 1,
-      bid: 10, // in cents
-      category: "Automobile, Finance"
+      CompanyID: "C1",
+      Countries: "US, FR",
+      Budget: 1,
+      Bid: 10, // in cents
+      Category: "Automobile, Finance"
     },
     {
-      id: "C2",
-      country: "IN, US",
-      budget: 2,
-      bid: 30, // in cents
-      category: "IT, Finance"
+      CompanyID: "C2",
+      Countries: "IN, US",
+      Budget: 2,
+      Bid: 30, // in cents
+      Category: "IT, Finance"
     },
     {
-      id: "C3",
-      country: "US, RU",
-      budget: 3,
-      bid: 5,
-      category: "Automobile, IT"
+      CompanyID: "C3",
+      Countries: "US, RU",
+      Budget: 3,
+      Bid: 5,
+      Category: "Automobile, IT"
     }
-  ]
-};
+  ];
 
 describe("Stock Exchange Logic Tests ", () => {
   describe(" == Base Targeting tests ==", () => {
@@ -37,8 +35,8 @@ describe("Stock Exchange Logic Tests ", () => {
         category: "Automobile"
       };
 
-      const result = exchangeLogic.checkBaseTargeting(mockDb, sampleData)
-      expect(result).to.equal("{C1, Passed}, {C2, Failed}, {C3, Passed}");
+      const result = exchangeLogic.checkBaseTargeting(mockDb, sampleData.countrycode, sampleData.category)
+      expect(result).to.equal("BaseTargeting: {C1, Passed},{C2, Failed},{C3, Passed}");
     });
       it("should match C2 only for base targeting", () => {
         const sampleData = {
@@ -47,8 +45,8 @@ describe("Stock Exchange Logic Tests ", () => {
           category: "Finance"
         };
 
-        const result = exchangeLogic.checkBaseTargeting(mockDb, sampleData)
-        expect(result).to.equal("{C1, Failed}, {C2, Passed}, {C3, Failed}");
+        const result = exchangeLogic.checkBaseTargeting(mockDb, sampleData.countrycode, sampleData.category)
+        expect(result).to.equal("BaseTargeting: {C1, Failed},{C2, Passed},{C3, Failed}");
       });
 
       it("should match C3 only for base targeting", () => {
@@ -57,8 +55,8 @@ describe("Stock Exchange Logic Tests ", () => {
           baseBid: "10",
           category: "Automobile"
         };
-        const outcome = exchangeLogic.checkBaseTargeting(mockDb, sampleData)
-        expect(outcome).to.equal("BaseTargeting: {C1, Failed}, {C2, Failed}, {C3, Passed}")
+        const outcome = exchangeLogic.checkBaseTargeting(mockDb,sampleData.countrycode, sampleData.category)
+        expect(outcome).to.equal("BaseTargeting: {C1, Failed},{C2, Failed},{C3, Passed}")
       });
     });
 
