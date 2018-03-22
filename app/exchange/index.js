@@ -67,10 +67,10 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
         return "No Companies Passed from Targeting";
     return logger(outcome, checks.BASETARGETING);
 };
-const checkBudget = (companies, bid) => {
+const checkBaseBid = (companies, bid) => {
     let failedCount = 0;
     const outcome = companies.map(company => {
-        const hasBudget = compareBudgetToBid(company, bid);
+        const hasBudget = compareBidToBaseBid(company, bid);
         if (hasBudget === resultStates.PASSED) {
             return `{${company.CompanyID}, ${resultStates.PASSED}}`;
         } else {
@@ -82,7 +82,7 @@ const checkBudget = (companies, bid) => {
         return "No Companies Passed from Budget";
     return logger(outcome, checks.BUDGETCHECK);
 };
-const checkBaseBid = () => {};
+const checkBudget = (companies) => {};
 const shortListCompany = () => {};
 const reduceBudget = () => {};
 const validate = (countryCode, Category, BaseBid) => {
@@ -106,11 +106,11 @@ const convertCentsToDollars = cents => {
     return cents / unit;
 };
 
-const compareBudgetToBid = (company, bid) => {
+const compareBidToBaseBid = (company, bid) => {
     const bidInFloat = parseFloat(bid);
-    const budgetDollarsInFloat = parseFloat(company.Budget);
-    const bidInDollars = convertCentsToDollars(bidInFloat);
-    const result = budgetDollarsInFloat - bidInDollars > 0;
+    const companyBidInFloat = parseFloat(company.Bid);
+
+    const result = companyBidInFloat < bidInFloat;
     return result ? resultStates.PASSED : resultStates.FAILED;
 };
 module.exports = {
