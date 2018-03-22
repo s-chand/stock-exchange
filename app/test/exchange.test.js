@@ -109,7 +109,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
              * They are both higher than 9
              */
             expect(outcome).to.equal(
-                "BaseBid: {C1, Failed},{C2, Failed},{C3, Passed}"
+                "BaseBid: {C1,Failed},{C2,Failed},{C3,Passed}"
             );
         });
 
@@ -128,7 +128,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
              * whereas we are passing in a 50
              */
             expect(outcome).to.equal(
-                "BaseBid: {C1, Passed},{C2, Passed},{C3, Passed}"
+                "BaseBid: {C1,Passed},{C2,Passed},{C3,Passed}"
             );
         });
         it("should fail to match baseBid for any company", () => {
@@ -151,8 +151,94 @@ describe("Stock Exchange Logic Unit Tests ", () => {
     describe(" == Budget Check Tests ==", () => {
         it("should pass budget check for all companies", () => {
             const outcome = exchangeLogic.checkBudget(mockDb);
+
             expect(outcome).to.equal(
-                "BudgetCheck: {C1, Passed}, {C2, Passed}, {C3, Passed}"
+                "BudgetCheck: {C1,Passed},{C2,Passed},{C3,Passed}"
+            );
+        });
+        it("should fail for all companies based on supplied data with the correct message", () => {
+            const mockDb2 = [
+                {
+                    CompanyID: "C1",
+                    Countries: "US, FR",
+                    Budget: 1,
+                    Bid: 100, // in cents
+                    Category: "Automobile, Finance"
+                },
+                {
+                    CompanyID: "C2",
+                    Countries: "IN, US",
+                    Budget: 2,
+                    Bid: 200, // in cents
+                    Category: "IT, Finance"
+                },
+                {
+                    CompanyID: "C3",
+                    Countries: "US, RU",
+                    Budget: 3,
+                    Bid: 300, // in cents
+                    Category: "Automobile, IT"
+                }
+            ];
+            const outcome = exchangeLogic.checkBudget(mockDb2);
+            expect(outcome).to.equal("No Companies Passed from Bugdet");
+        });
+        it("should fail for C1 and C3 with the correct message", () => {
+            const mockDb2 = [
+                {
+                    CompanyID: "C1",
+                    Countries: "US, FR",
+                    Budget: 1,
+                    Bid: 100, // in cents
+                    Category: "Automobile, Finance"
+                },
+                {
+                    CompanyID: "C2",
+                    Countries: "IN, US",
+                    Budget: 2,
+                    Bid: 20, // in cents
+                    Category: "IT, Finance"
+                },
+                {
+                    CompanyID: "C3",
+                    Countries: "US, RU",
+                    Budget: 3,
+                    Bid: 300, // in cents
+                    Category: "Automobile, IT"
+                }
+            ];
+            const outcome = exchangeLogic.checkBudget(mockDb2);
+            expect(outcome).to.equal(
+                "BudgetCheck: {C1,Failed},{C2,Passed},{C3,Failed}"
+            );
+        });
+        it("should fail for C2 alone with the correct message", () => {
+            const mockDb2 = [
+                {
+                    CompanyID: "C1",
+                    Countries: "US, FR",
+                    Budget: 1,
+                    Bid: 10, // in cents
+                    Category: "Automobile, Finance"
+                },
+                {
+                    CompanyID: "C2",
+                    Countries: "IN, US",
+                    Budget: 2,
+                    Bid: 200, // in cents
+                    Category: "IT, Finance"
+                },
+                {
+                    CompanyID: "C3",
+                    Countries: "US, RU",
+                    Budget: 3,
+                    Bid: 3, // in cents
+                    Category: "Automobile, IT"
+                }
+            ];
+            const outcome = exchangeLogic.checkBudget(mockDb2);
+            expect(outcome).to.equal(
+                "BudgetCheck: {C1,Passed},{C2,Failed},{C3,Passed}"
             );
         });
     });

@@ -72,17 +72,30 @@ const checkBaseBid = (companies, bid) => {
     const outcome = companies.map(company => {
         const hasBudget = compareBidToBaseBid(company, bid);
         if (hasBudget === resultStates.PASSED) {
-            return `{${company.CompanyID}, ${resultStates.PASSED}}`;
+            return `{${company.CompanyID},${resultStates.PASSED}}`;
         } else {
             failedCount++;
-            return `{${company.CompanyID}, ${resultStates.FAILED}}`;
+            return `{${company.CompanyID},${resultStates.FAILED}}`;
         }
     });
     if (failedCount === companies.length)
         return "No Companies Passed from BaseBid check";
     return logger(outcome, checks.BASEBID);
 };
-const checkBudget = companies => {};
+const checkBudget = companies => {
+    let failedCount = 0;
+    const result = companies.map(company => {
+        // convert the cents to dollars for comparison
+        const convertedBid = convertCentsToDollars(parseFloat(company.Bid));
+        const outcome = parseFloat(company.Budget) > convertedBid;
+        if (outcome === false) failedCount++;
+        return outcome ? `{${company.CompanyID},${resultStates.PASSED}}`
+            : `{${company.CompanyID},${resultStates.FAILED}}`;
+    });
+    if (failedCount === companies.length)
+        return "No Companies Passed from Bugdet";
+    return logger(result, checks.BUDGETCHECK);
+};
 const shortListCompany = () => {};
 const reduceBudget = () => {};
 const validate = (countryCode, Category, BaseBid) => {
