@@ -26,7 +26,7 @@ const mockDb = [
     }
   ];
 
-describe("Stock Exchange Logic Tests ", () => {
+describe("Stock Exchange Logic Unit Tests ", () => {
   describe(" == Base Targeting tests ==", () => {
     it("should match C1 and C3 only for base targeting", () => {
       const sampleData = {
