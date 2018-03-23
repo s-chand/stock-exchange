@@ -1,5 +1,5 @@
 const url = require("url");
-const { logger, winnerLog} = require("./log");
+const { logger, winnerLog } = require("./log");
 const companyModel = require("../models").Company;
 
 const resultStates = {
@@ -35,7 +35,7 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
         }
     }
     logger(logResultList, checks.BASETARGETING);
-    companies = companies.filter(x => Boolean(x))
+    companies = companies.filter(x => Boolean(x));
     return companies;
 };
 const checkBaseBid = (companies, bid) => {
@@ -55,7 +55,7 @@ const checkBaseBid = (companies, bid) => {
         }
     }
     logger(resultLogList, checks.BASEBID);
-    companies = companies.filter(x => Boolean(x))
+    companies = companies.filter(x => Boolean(x));
     return companies;
 };
 const checkBudget = companies => {
@@ -81,49 +81,51 @@ const checkBudget = companies => {
         }
     }
     logger(resultLogList, checks.BUDGETCHECK);
-    companies = companies.filter(x => Boolean(x))
+    companies = companies.filter(x => Boolean(x));
     return companies;
 };
 const shortListCompany = companies => {
     // Get the company with the highest bid
     /**
      * Algorithm
-     * Sort the companies using Array.sort but with a custom 
+     * Sort the companies using Array.sort but with a custom
      * function that takes the company and compares their Bids.
-     * 
+     *
      * Pull out the highest value based on the order as the winner.
      * return the CompanyID
      */
 
-     // take the company object and compare the Bids taking into consideration that it's stored as strings
-    const compare = (a, b) =>  parseFloat(a.Bid) - parseFloat(b.Bid);
-    let winner = {}
+    // take the company object and compare the Bids taking into consideration that it's stored as strings
+    const compare = (a, b) => parseFloat(a.Bid) - parseFloat(b.Bid);
+    let winner = {};
     // check if the array length is one and return the company Bid
-    if(companies.length === 1) {
-        winner = companies.pop()
+    if (companies.length === 1) {
+        winner = companies.pop();
         winnerLog(winner);
         return winner;
     }
     // this means we have more than one company returned that matches the results
     // Hence we need to sort the collection using our
-    companies.sort(compare)
-    winner = companies.pop()
-    winnerLog(winner)
+    companies.sort(compare);
+    winner = companies.pop();
+    winnerLog(winner);
     return winner;
-
 };
-const reduceBudget = (company) => {
-    const currentBid = parseFloat(company.Bid)
+const reduceBudget = company => {
+    const currentBid = parseFloat(company.Bid);
     const currentBudget = parseFloat(company.Budget);
     const newBudget = currentBudget - convertCentsToDollars(currentBid);
 
-    return companyModel.update({
-        Budget: newBudget.toFixed(2) // incase it now has decimal places    
-    }, {
-        where: {
-            CompanyID: company.CompanyID
+    return companyModel.update(
+        {
+            Budget: newBudget.toFixed(2) // incase it now has decimal places
+        },
+        {
+            where: {
+                CompanyID: company.CompanyID
+            }
         }
-    })
+    );
 };
 const validateData = (countryCode, Category, BaseBid) => {
     if (!countryCode || !Category || !BaseBid) return false;
@@ -172,7 +174,7 @@ const receiveRequest = (req, res) => {
         return res.status(400).json({
             message: "Incorrect data supplied. Please check and retry"
         });
-        companyModel
+    companyModel
         .findAll({
             attributes: ["CompanyID", "Budget", "Category", "Countries", "Bid"]
         })
@@ -183,7 +185,6 @@ const receiveRequest = (req, res) => {
                 countrycode,
                 Category
             );
-
 
             if (companyList.length === 0)
                 return res.json("No Companies Passed from Targeting");
@@ -198,14 +199,16 @@ const receiveRequest = (req, res) => {
 
             if (companyList.length === 0)
                 return res.json("No Companies Passed from BaseBid check");
-            
-            const winner = shortListCompany(companyList)
 
-            reduceBudget(winner).then( updateResult => {
-                return res.json(`Winner = ${winner.CompanyID}`)
-            }).catch(err => {
-                return res.status(400).json(err)
-            })
+            const winner = shortListCompany(companyList);
+
+            reduceBudget(winner)
+                .then(updateResult => {
+                    return res.json(`Winner = ${winner.CompanyID}`);
+                })
+                .catch(err => {
+                    return res.status(400).json(err);
+                });
             // return res.json(winner);
         })
         .catch(err => {

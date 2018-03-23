@@ -10,7 +10,7 @@ exports.logger = (resultCollection, check) => {
     console.log(messageToLog);
 };
 
-exports.winnerLog = (winner) => {
+exports.winnerLog = winner => {
     const messageToLog = `Winner = ${winner.CompanyID}`;
     console.log(messageToLog);
-}
+};

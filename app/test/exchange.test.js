@@ -3,7 +3,7 @@ const expect = chai.expect;
 const exchangeLogic = require("../exchange/index");
 
 // TODO: read logs from file for tests
-const LOGS_PATH = ""
+const LOGS_PATH = "";
 
 const mockDb = [
     {
@@ -248,13 +248,13 @@ describe("Stock Exchange Logic Unit Tests ", () => {
         });
     });
 
-    describe (" == Budget Reduction Tests", () => {
-      it("should reduce budget for C2", ()=>{
-        const companyID = "C2"
-        const previousBudget = 2 //dollars
-        const bid = 100 // cents
-        exchangeLogic.reduceBudget(mockDb, companyID, bid)
-        expect(mockDb[1].Budget).to.equal(1)
-      })
-    })
+    describe(" == Budget Reduction Tests", () => {
+        it("should reduce budget for C2", () => {
+            const companyID = "C2";
+            const previousBudget = 2; //dollars
+            const bid = 100; // cents
+            exchangeLogic.reduceBudget(mockDb, companyID, bid);
+            expect(mockDb[1].Budget).to.equal(1);
+        });
+    });
 });
