@@ -14,75 +14,75 @@ const checks = {
 
 const checkBaseTargeting = (companies, countrycode, Category) => {
     // Find the simplest way to search the collection of companies using countrycode and Category
+    // let companies = [...cx];
     const logResultList = [];
     let companyListLength = companies.length;
-    for (let i = 0; i < companyListLength; i++) {
-        const countryFound = findSubString(companies[i].Countries, countrycode);
-        const categoryFound = findSubString(companies[i].Category, Category);
-
+    let successList = []
+    companies.forEach(company =>{
+        const countryFound = findSubString(company.Countries, countrycode);
+        const categoryFound = findSubString(company.Category, Category);
         if (
             countryFound === resultStates.PASSED &&
             categoryFound === resultStates.PASSED
         ) {
             logResultList.push(
-                `{${companies[i].CompanyID}, ${resultStates.PASSED}}`
+                `{${company.CompanyID}, ${resultStates.PASSED}}`
             );
+            successList.push(company)
         } else {
             logResultList.push(
-                `{${companies[i].CompanyID}, ${resultStates.FAILED}}`
+                `{${company.CompanyID}, ${resultStates.FAILED}}`
             );
-            delete companies[i];
         }
-    }
+    })
+
     logger(logResultList, checks.BASETARGETING);
-    companies = companies.filter(x => Boolean(x));
-    return companies;
+    return successList;
 };
 const checkBaseBid = (companies, bid) => {
     let resultLogList = [];
     let companyListLength = companies.length;
-    for (let i = 0; i < companyListLength; i++) {
-        const hasBudget = compareBidToBaseBid(companies[i], bid);
+    let successList = []
+    companies.forEach(company => {
+        const hasBudget = compareBidToBaseBid(company, bid);
         if (hasBudget === resultStates.PASSED) {
             resultLogList.push(
-                `{${companies[i].CompanyID},${resultStates.PASSED}}`
+                `{${company.CompanyID},${resultStates.PASSED}}`
             );
+            successList.push(company)
         } else {
             resultLogList.push(
-                `{${companies[i].CompanyID},${resultStates.FAILED}}`
+                `{${company.CompanyID},${resultStates.FAILED}}`
             );
-            delete companies[i];
         }
-    }
+    })
     logger(resultLogList, checks.BASEBID);
-    companies = companies.filter(x => Boolean(x));
-    return companies;
+    return successList;
 };
 const checkBudget = companies => {
     let resultLogList = [];
     let companyListLength = companies.length;
+    let successList = []
 
-    for (let i = 0; i < companyListLength; i++) {
-        // convert the cents to dollars for comparison
+    companies.forEach(company =>{
         const convertedBid = convertCentsToDollars(
-            parseFloat(companies[i].Bid)
+            parseFloat(company.Bid)
         );
-        const outcome = parseFloat(companies[i].Budget) > convertedBid;
+        const outcome = parseFloat(company.Budget) > convertedBid;
 
         if (outcome === false) {
             resultLogList.push(
-                `{${companies[i].CompanyID},${resultStates.FAILED}}`
+                `{${company.CompanyID},${resultStates.FAILED}}`
             );
-            delete companies[i];
         } else {
             resultLogList.push(
-                `{${companies[i].CompanyID},${resultStates.PASSED}}`
+                `{${company.CompanyID},${resultStates.PASSED}}`
             );
+            successList.push(company)
         }
-    }
+    })
     logger(resultLogList, checks.BUDGETCHECK);
-    companies = companies.filter(x => Boolean(x));
-    return companies;
+    return successList;
 };
 const shortListCompany = companies => {
     // Get the company with the highest bid
