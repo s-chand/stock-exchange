@@ -2,32 +2,7 @@ const chai = require("chai");
 const expect = chai.expect;
 const exchangeLogic = require("../exchange/index");
 
-// TODO: read logs from file for tests
-const LOGS_PATH = "/tmp/logs";
-
-const mockDb = [
-    {
-        CompanyID: "C1",
-        Countries: "US, FR",
-        Budget: 1,
-        Bid: 10, // in cents
-        Category: "Automobile, Finance"
-    },
-    {
-        CompanyID: "C2",
-        Countries: "IN, US",
-        Budget: 2,
-        Bid: 30, // in cents
-        Category: "IT, Finance"
-    },
-    {
-        CompanyID: "C3",
-        Countries: "US, RU",
-        Budget: 3,
-        Bid: 5, // in cents
-        Category: "Automobile, IT"
-    }
-];
+const {mockDb} = require("./mockdata")
 
 describe("Stock Exchange Logic Unit Tests ", () => {
     describe(" == Base Targeting tests ==", () => {
@@ -52,16 +27,14 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                     Bid: 5, // in cents
                     Category: "Automobile, IT"
                 }
-            ]
+            ];
             const result = exchangeLogic.checkBaseTargeting(
                 mockDb,
                 sampleData.countrycode,
                 sampleData.category
             );
-            
-            expect(result).to.deep.equal(
-               expectedOutcome
-            );
+
+            expect(result).to.deep.equal(expectedOutcome);
         });
         it("should match C2 only for base targeting", () => {
             const sampleData = {
@@ -69,21 +42,21 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                 baseBid: "10",
                 category: "Finance"
             };
-            const expectedOutcome = [{
-                CompanyID: "C2",
-                Countries: "IN, US",
-                Budget: 2,
-                Bid: 30, // in cents
-                Category: "IT, Finance"
-            }]
+            const expectedOutcome = [
+                {
+                    CompanyID: "C2",
+                    Countries: "IN, US",
+                    Budget: 2,
+                    Bid: 30, // in cents
+                    Category: "IT, Finance"
+                }
+            ];
             const result = exchangeLogic.checkBaseTargeting(
                 mockDb,
                 sampleData.countrycode,
                 sampleData.category
             );
-            expect(result).to.deep.equal(
-                expectedOutcome
-            );
+            expect(result).to.deep.equal(expectedOutcome);
         });
 
         it("should match C3 only for base targeting", () => {
@@ -99,16 +72,14 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                     Budget: 3,
                     Bid: 5, // in cents
                     Category: "Automobile, IT"
-                }  
-            ]
+                }
+            ];
             const outcome = exchangeLogic.checkBaseTargeting(
                 mockDb,
                 sampleData.countrycode,
                 sampleData.category
             );
-            expect(outcome).to.deep.equal(
-                expectedOutcome
-            );
+            expect(outcome).to.deep.equal(expectedOutcome);
         });
         it("should fail all checks for Targeting with the correct message", () => {
             const sampleData = {
@@ -140,8 +111,8 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                     Budget: 3,
                     Bid: 5, // in cents
                     Category: "Automobile, IT"
-                }   
-            ]
+                }
+            ];
             const outcome = exchangeLogic.checkBaseBid(
                 mockDb,
                 sampleData.baseBid
@@ -151,9 +122,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
              * C1 has a baseBid of 10, C2 a base bid of 30.
              * They are both higher than 9
              */
-            expect(outcome).to.deep.equal(
-                expectedOutcome
-            );
+            expect(outcome).to.deep.equal(expectedOutcome);
         });
 
         it("should match baseBid for all companies", () => {
@@ -170,9 +139,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
              * This should pass all companies available as the highest in the data is 30
              * whereas we are passing in a 50
              */
-            expect(outcome).to.deep.equal(
-                mockDb
-            );
+            expect(outcome).to.deep.equal(mockDb);
         });
         it("should fail to match baseBid for any company", () => {
             const sampleData = {
@@ -188,7 +155,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
              * This should fail for all companies available because it's base bid offering is lower than that available for all companies present.
              */
             expect(outcome).to.deep.equal([]);
-            expect(outcome.length).to.equal(0)
+            expect(outcome.length).to.equal(0);
         });
     });
 
@@ -196,12 +163,10 @@ describe("Stock Exchange Logic Unit Tests ", () => {
         it("should pass budget check for all companies", () => {
             const outcome = exchangeLogic.checkBudget(mockDb);
 
-            expect(outcome).to.deep.equal(
-                mockDb
-            );
-            expect(outcome.length).to.equal(mockDb.length)
+            expect(outcome).to.deep.equal(mockDb);
+            expect(outcome.length).to.equal(mockDb.length);
         });
-        it("should fail for all companies based on supplied data with the correct message", () => {
+        it("should fail for all companies based on supplied data", () => {
             const mockDb2 = [
                 {
                     CompanyID: "C1",
@@ -227,7 +192,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
             ];
             const outcome = exchangeLogic.checkBudget(mockDb2);
             expect(outcome).to.deep.equal([]);
-            expect(outcome.length).to.equal(0)
+            expect(outcome.length).to.equal(0);
         });
         it("should fail for C1 and C3 and return C2", () => {
             const mockDb2 = [
@@ -260,13 +225,11 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                     Budget: 2,
                     Bid: 20, // in cents
                     Category: "IT, Finance"
-                }  
-            ]
+                }
+            ];
             const outcome = exchangeLogic.checkBudget(mockDb2);
-            expect(outcome).to.deep.equal(
-                expectedOutcome
-            );
-            expect(outcome.length).to.equal(1)
+            expect(outcome).to.deep.equal(expectedOutcome);
+            expect(outcome.length).to.equal(1);
         });
         it("should fail for C2 alone and return C1 & C3", () => {
             const mockDb2 = [
@@ -308,19 +271,16 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                     Bid: 3, // in cents
                     Category: "Automobile, IT"
                 }
-
-            ]
+            ];
             const outcome = exchangeLogic.checkBudget(mockDb2);
-            expect(outcome).to.deep.equal(
-                expectedOutcome
-            );
-            expect(outcome.length).to.equal(2)
+            expect(outcome).to.deep.equal(expectedOutcome);
+            expect(outcome.length).to.equal(2);
         });
     });
     describe(" == Shortlist tests ==", () => {
         it("should shortlist C2 as the winner i.e highest bid", () => {
-            const outcome = exchangeLogic.shortListCompany(mockDb)
-            expect(outcome.CompanyID).to.equal("C2")
-        })
-    })
+            const outcome = exchangeLogic.shortListCompany(mockDb);
+            expect(outcome.CompanyID).to.equal("C2");
+        });
+    });
 });

@@ -1,5 +1,8 @@
 const url = require("url");
-const { logger, winnerLog } = require("./log");
+let log = require("./log");
+const logManager = new log("/tmp/logs/log.txt");
+const logger = (message, check) => logManager.logger(message, check);
+const winnerLog = message => logManager.winnerLog(message);
 const companyModel = require("../models").Company;
 
 const resultStates = {
@@ -17,8 +20,8 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
     // let companies = [...cx];
     const logResultList = [];
     let companyListLength = companies.length;
-    let successList = []
-    companies.forEach(company =>{
+    let successList = [];
+    companies.forEach(company => {
         const countryFound = findSubString(company.Countries, countrycode);
         const categoryFound = findSubString(company.Category, Category);
         if (
@@ -28,13 +31,13 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
             logResultList.push(
                 `{${company.CompanyID}, ${resultStates.PASSED}}`
             );
-            successList.push(company)
+            successList.push(company);
         } else {
             logResultList.push(
                 `{${company.CompanyID}, ${resultStates.FAILED}}`
             );
         }
-    })
+    });
 
     logger(logResultList, checks.BASETARGETING);
     return successList;
@@ -42,45 +45,35 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
 const checkBaseBid = (companies, bid) => {
     let resultLogList = [];
     let companyListLength = companies.length;
-    let successList = []
+    let successList = [];
     companies.forEach(company => {
         const hasBudget = compareBidToBaseBid(company, bid);
         if (hasBudget === resultStates.PASSED) {
-            resultLogList.push(
-                `{${company.CompanyID},${resultStates.PASSED}}`
-            );
-            successList.push(company)
+            resultLogList.push(`{${company.CompanyID},${resultStates.PASSED}}`);
+            successList.push(company);
         } else {
-            resultLogList.push(
-                `{${company.CompanyID},${resultStates.FAILED}}`
-            );
+            resultLogList.push(`{${company.CompanyID},${resultStates.FAILED}}`);
         }
-    })
+    });
     logger(resultLogList, checks.BASEBID);
     return successList;
 };
 const checkBudget = companies => {
     let resultLogList = [];
     let companyListLength = companies.length;
-    let successList = []
+    let successList = [];
 
-    companies.forEach(company =>{
-        const convertedBid = convertCentsToDollars(
-            parseFloat(company.Bid)
-        );
+    companies.forEach(company => {
+        const convertedBid = convertCentsToDollars(parseFloat(company.Bid));
         const outcome = parseFloat(company.Budget) > convertedBid;
 
         if (outcome === false) {
-            resultLogList.push(
-                `{${company.CompanyID},${resultStates.FAILED}}`
-            );
+            resultLogList.push(`{${company.CompanyID},${resultStates.FAILED}}`);
         } else {
-            resultLogList.push(
-                `{${company.CompanyID},${resultStates.PASSED}}`
-            );
-            successList.push(company)
+            resultLogList.push(`{${company.CompanyID},${resultStates.PASSED}}`);
+            successList.push(company);
         }
-    })
+    });
     logger(resultLogList, checks.BUDGETCHECK);
     return successList;
 };
@@ -193,7 +186,7 @@ const receiveRequest = (req, res) => {
             // companyList = companyList.fliter(x => x)
 
             if (companyList.length === 0)
-                return res.json("No Companies Passed from Bugdet");
+                return res.json("No Companies Passed from Budget");
 
             companyList = checkBaseBid(companyList, BaseBid);
 
@@ -209,10 +202,6 @@ const receiveRequest = (req, res) => {
                 .catch(err => {
                     return res.status(400).json(err);
                 });
-            // return res.json(winner);
-        })
-        .catch(err => {
-            return res.status(400).json(err);
         });
 };
 

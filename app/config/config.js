@@ -12,11 +12,12 @@ module.exports = {
   test: {
     username: process.env.PGUSER || 'postgres',
     password: process.env.PGPASSWORD || 'password',
-    database: process.env.PGDATABASE || 'company',
+    database: process.env.PGDATABASE || 'test',
     host: process.env.PGHOST || 'postgres',
     port: process.env.PGPORT || 5432,
     dialect: 'postgres',
     operatorsAliases: Sequelize.Op,
+    logging: false
   },
   production: {
     username: process.env.PGUSER,
@@ -26,5 +27,6 @@ module.exports = {
     port: process.env.PGPORT,
     dialect: 'postgres',
     operatorsAliases: Sequelize.Op,
+    logging: false,
   }
 };
