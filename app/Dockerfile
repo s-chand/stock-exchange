@@ -1,14 +1,16 @@
 FROM node:latest
 
 ENV WORKDIR /usr/src/app
+ENV LOGS_DIR /tmp/logs
 ENV PORT ${PORT}
 
-RUN mkdir ${WORKDIR}
+RUN mkdir -p ${WORKDIR} ${LOGS_DIR}
 
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
 
-RUN mkdir -p ${WORKDIR} && cp -a /tmp/node_modules ${WORKDIR}
+
+RUN cp -a /tmp/node_modules ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 COPY . .
