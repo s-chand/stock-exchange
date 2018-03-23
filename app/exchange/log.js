@@ -7,5 +7,10 @@ const writeToLogFile = message => {
 };
 exports.logger = (resultCollection, check) => {
     const messageToLog = `${check}: ${resultCollection.join(",")}`;
-    return messageToLog;
+    console.log(messageToLog);
 };
+
+exports.winnerLog = (winner) => {
+    const messageToLog = `Winner = ${winner.CompanyID}`;
+    console.log(messageToLog);
+}

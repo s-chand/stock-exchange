@@ -2,6 +2,9 @@ const chai = require("chai");
 const expect = chai.expect;
 const exchangeLogic = require("../exchange/index");
 
+// TODO: read logs from file for tests
+const LOGS_PATH = ""
+
 const mockDb = [
     {
         CompanyID: "C1",
@@ -88,6 +91,8 @@ describe("Stock Exchange Logic Unit Tests ", () => {
                 sampleData.category
             );
             expect(outcome).to.equal("No Companies Passed from Targeting");
+            // TODO: Test for Log output
+            // TODO: Test for a list container only the expected/ desired values
         });
     });
 
@@ -242,4 +247,14 @@ describe("Stock Exchange Logic Unit Tests ", () => {
             );
         });
     });
+
+    describe (" == Budget Reduction Tests", () => {
+      it("should reduce budget for C2", ()=>{
+        const companyID = "C2"
+        const previousBudget = 2 //dollars
+        const bid = 100 // cents
+        exchangeLogic.reduceBudget(mockDb, companyID, bid)
+        expect(mockDb[1].Budget).to.equal(1)
+      })
+    })
 });
