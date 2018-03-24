@@ -28,11 +28,11 @@ In order to test, please do the following:
  You should see the following results:
 
  <img width="642" alt="screen shot 2018-03-24 at 1 40 00 am" src="https://user-images.githubusercontent.com/1958765/37858516-c07fdd28-2f05-11e8-9b30-00e1ebeb776e.png">
-
+![image](https://user-images.githubusercontent.com/1958765/37858516-c07fdd28-2f05-11e8-9b30-00e1ebeb776e.png)
 As well this:
 
 <img width="1278" alt="screen shot 2018-03-24 at 1 47 16 am" src="https://user-images.githubusercontent.com/1958765/37858518-c53fcf76-2f05-11e8-9cbb-9d95a2549890.png"> 
-
+![image](https://user-images.githubusercontent.com/1958765/37858518-c53fcf76-2f05-11e8-9cbb-9d95a2549890.png)
 
 Istanbul generates a directory called coverage under `<project root>/app/coverage`.
 Double clicking the index.html file will show the coverage reports interactively on a browser.
