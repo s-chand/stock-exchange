@@ -120,3 +120,8 @@ I have also included coverage reports as shown above indicating that the code is
 The coverage reports are generated and place in `<root folder>/app/coverage`
 
 I chose html and text so you can see the coverage on the console as well as in the browser.
+Also note that I clear the logs for every run through of the tests. I imagine that this can quickly become a lot if the tests are run multiple times.
+However, when the application is `started` (i.e. `yarn start` or `npm start` or `docker-compose up`) the logs are appended continously as they are gotten from the various transactions.
+
+
+(c) Samuel Okoroafor, 2018
