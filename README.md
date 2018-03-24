@@ -36,3 +36,7 @@ As well this:
 
 Istanbul generates a directory called coverage under `<project root>/app/coverage`.
 Double clicking the index.html file will show the coverage reports interactively on a browser.
+
+## How the code works
+The repository / project code hasthe following folder structure:
+
