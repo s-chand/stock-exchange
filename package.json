@@ -8,8 +8,8 @@
     "jshint": "^2.9.5"
   },
   "scripts": {
-    "pretest": "docker-compose up -d && docker-compose exec exchange npm run migration ",
-    "test": "docker-compose exec exchange npm test ",
+    "pretest": "docker-compose rm --f; docker-compose build; docker-compose up -d --remove-orphans",
+    "test": "docker-compose exec exchange npm test",
     "posttest": "docker-compose down",
     "prestart": "docker-compose build",
     "start": "docker-compose up"
