@@ -199,9 +199,6 @@ const receiveRequest = (req, res) => {
                 .then(updateResult => {
                     return res.json(`Winner = ${winner.CompanyID}`);
                 })
-                .catch(err => {
-                    return res.status(400).json(err);
-                });
         });
 };
 

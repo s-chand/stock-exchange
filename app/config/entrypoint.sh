@@ -3,4 +3,4 @@
 set -eux
 
 npm run migration
-npm run dev
+npm start
