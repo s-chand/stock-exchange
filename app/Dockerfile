@@ -15,7 +15,6 @@ RUN cp -a /tmp/node_modules ${WORKDIR}
 WORKDIR ${WORKDIR}
 
 COPY . .
-RUN ls -al
 
 COPY ./config/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh /opt/app/wait-for-it.sh
