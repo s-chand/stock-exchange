@@ -1,5 +1,4 @@
 .env
 node_modules
-logs/log.txt
 .nyc_output
 coverage

@@ -22,7 +22,7 @@ class Logger {
         this.writeToLogFile(messageToLog);
     }
     clearLogs() {
-        fs.unlinkSync(this.path);
+        fs.truncateSync(this.path, 0);
     }
 }
 
