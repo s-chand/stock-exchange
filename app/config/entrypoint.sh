@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -eux
 
@@ -9,7 +9,5 @@ set -eux
 # Let's wait a lttle more
 sleep 5
 
-npm run prune
 npm run migration
-npm run seed
 npm start

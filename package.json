@@ -4,14 +4,14 @@
   "main": "index.js",
   "author": "Samuel Okoroafor <samuel.i.okoroafor@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
-    "jshint": "^2.9.5"
-  },
   "scripts": {
-    "pretest": "docker-compose rm --f; docker-compose up --remove-orphans -d postgres exchange",
-    "test": "docker-compose exec exchange npm run migration; docker-compose exec exchange npm test",
+    "pretest": "docker-compose up -d",
+    "test": "npm run clearDB; npm run migrate; npm run seed; docker-compose exec exchange npm run test",
     "posttest": "docker-compose down",
     "prestart": "docker-compose build",
-    "start": "docker-compose up"
+    "start": "docker-compose up",
+    "migrate":"docker-compose exec exchange npm run migration",
+    "seed":"docker-compose exec exchange npm run seed",
+    "clearDB": "docker-compose exec exchange npm run prune"
   }
 }
