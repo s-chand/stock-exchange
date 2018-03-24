@@ -21,6 +21,13 @@ services:
       context: app
     restart: always
     env_file: .env
+    environment:
+      PORT: ${PORT}
+      PGHOST: ${PGHOST}
+      PGPORT: ${PGPORT}
+      PGDATABASE: ${PGDATABASE}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
     links:
       - postgres:postgres
     networks:
