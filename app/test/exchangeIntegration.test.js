@@ -41,7 +41,7 @@ describe("Integration Tests", () => {
             .get("/api?countrycode=US&Category=Automobile&BaseBid=9")
             .then(response => {
                 expect(response).to.have.status(200);
-                expect(response.body).to.equal("Winner = C3");
+                expect(response.body).to.equal("C3");
             });
     });
 

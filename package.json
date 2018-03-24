@@ -8,8 +8,10 @@
     "jshint": "^2.9.5"
   },
   "scripts": {
-    "test": "docker-compose up -d && docker-compose exec exchange npm test ",
-    "seed": "docker-compose exec exchange npm seed",
-    "start": "docker-compose up --build"
+    "pretest": "docker-compose up -d && docker-compose exec exchange npm run migration ",
+    "test": "docker-compose exec exchange npm test ",
+    "posttest": "docker-compose down",
+    "prestart": "docker-compose build",
+    "start": "docker-compose up"
   }
 }

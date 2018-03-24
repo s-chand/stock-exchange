@@ -195,10 +195,9 @@ const receiveRequest = (req, res) => {
 
             const winner = shortListCompany(companyList);
 
-            reduceBudget(winner)
-                .then(updateResult => {
-                    return res.json(`Winner = ${winner.CompanyID}`);
-                })
+            reduceBudget(winner).then(updateResult => {
+                return res.json(`${winner.CompanyID}`);
+            });
         });
 };
 

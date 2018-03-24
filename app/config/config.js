@@ -8,6 +8,7 @@ module.exports = {
     port: process.env.PGPORT || 5432,
     dialect: 'postgres',
     operatorsAliases: Sequelize.Op,
+    logging: false
   },
   test: {
     username: process.env.PGUSER || 'postgres',

@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "31065795-32cf-4cc1-87cc-9fca005b05bc",
+		"name": "stockexchange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Winner = C1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fea4527c-c742-416b-a5b3-685afe73fb06",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Should return 'C1' as winner\", function(){",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.equal(\"C1\");",
+							"});",
+							"pm.test(\"Should have a status of 200\", function(){",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api?countrycode=US&Category=Automobile&BaseBid=11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "countrycode",
+							"value": "US"
+						},
+						{
+							"key": "Category",
+							"value": "Automobile"
+						},
+						{
+							"key": "BaseBid",
+							"value": "11"
+						}
+					]
+				},
+				"description": "A test for Winner = C1"
+			},
+			"response": []
+		},
+		{
+			"name": "Winner = C2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a8c05c6-ac15-4368-9719-7c57a646ada0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Should return 'C2'\", function(){",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.equal(\"C2\");",
+							"});",
+							"pm.test(\"Should have a status of 200\", function(){",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api?countrycode=IN&Category=Finance&BaseBid=40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "countrycode",
+							"value": "IN"
+						},
+						{
+							"key": "Category",
+							"value": "Finance"
+						},
+						{
+							"key": "BaseBid",
+							"value": "40"
+						}
+					]
+				},
+				"description": "A test to make C2 emerge winner"
+			},
+			"response": []
+		},
+		{
+			"name": "Winner = C3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a67e9fc6-dcec-4d8c-97d7-895c26af0680",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Should return 'C3' as winner\", function(){",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.equal(\"C3\");",
+							"});",
+							"pm.test(\"Should have a status of 200\", function(){",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api?countrycode=US&Category=Automobile&BaseBid=9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "countrycode",
+							"value": "US"
+						},
+						{
+							"key": "Category",
+							"value": "Automobile"
+						},
+						{
+							"key": "BaseBid",
+							"value": "9"
+						}
+					]
+				},
+				"description": "A test for C3 to emerge winner"
+			},
+			"response": []
+		},
+		{
+			"name": "BaseBid Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b230e0b-792c-40d0-813a-8fb746694c05",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Should return 'No Companies Passed from BaseBid check'\", function(){",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.equal(\"No Companies Passed from BaseBid check\");",
+							"});",
+							"pm.test(\"Should have a status of 200\", function(){",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api?countrycode=US&Category=Automobile&BaseBid=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "countrycode",
+							"value": "US"
+						},
+						{
+							"key": "Category",
+							"value": "Automobile"
+						},
+						{
+							"key": "BaseBid",
+							"value": "3"
+						}
+					]
+				},
+				"description": "A test to fail BaseBid"
+			},
+			"response": []
+		},
+		{
+			"name": "Base Targeting Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77603ef3-470e-4595-baff-b2e93dd02f86",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Should return 'No Companies Passed from Targeting'\", function(){",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"    pm.expect(pm.response.json()).to.equal(\"No Companies Passed from Targeting\");",
+							"});",
+							"pm.test(\"Should have a status of 200\", function(){",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/api?countrycode=NG&Category=Automobile&BaseBid=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					],
+					"query": [
+						{
+							"key": "countrycode",
+							"value": "NG"
+						},
+						{
+							"key": "Category",
+							"value": "Automobile"
+						},
+						{
+							"key": "BaseBid",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Should fail base targeting"
+			},
+			"response": []
+		}
+	]
+}
