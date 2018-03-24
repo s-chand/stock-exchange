@@ -29,7 +29,6 @@ In order to test, please do the following:
 
 <img src ="https://user-images.githubusercontent.com/1958765/37858516-c07fdd28-2f05-11e8-9b30-00e1ebeb776e.png" with="400"/>
 
-
 As well this:
 
 <img src="https://user-images.githubusercontent.com/1958765/37858518-c53fcf76-2f05-11e8-9cbb-9d95a2549890.png" width="800" />
@@ -69,42 +68,42 @@ Asides the directories listed above, the following files are also present:
 ## Exchange API End to End process
 
 The API was implemented following the below specifications:
-1. A bid is submitted via an API call passing the following paramteres
 
-    - Country
-    - BaseBid
-    - Category
+1.  A bid is submitted via an API call passing the following paramteres
+
+    * Country
+    * BaseBid
+    * Category
 
 Using these with values as query paramters, the API extracts these items and carries out the followinng validations:
 
-1. <b>Base Targeting check:</b> Here we check for a match for the supplied category and country. If we find a match in the database, we log this using the example format: 
-    
+1.  <b>Base Targeting check:</b> Here we check for a match for the supplied category and country. If we find a match in the database, we log this using the example format:
+
     `BaseTargeting: {C1, Passed},{C2, Failed},{C3, Passed}`
 
 Companies that pass this first check are then allowed to go through the next steps.
 
-2. <b>Budget Check:</b> Here we check that the successful companies indeed have a budget to sell stock. This is done by comparing the comapny's bid to the Budget. If the company budget exceeds the quantity of the bid the company is said to have passed budget check. We then log a message like so:
+2.  <b>Budget Check:</b> Here we check that the successful companies indeed have a budget to sell stock. This is done by comparing the comapny's bid to the Budget. If the company budget exceeds the quantity of the bid the company is said to have passed budget check. We then log a message like so:
 
     `BudgetCheck: {C1,Passed},{C3,Passed}`
-    
+
 When companies pass the budget check they continue on to the next step.
 
-3. <b>BaseBid check:</b> This checks the BaseBid supplied to the API against the bid stored for a company in the database. If the company's bid is higher, we eliminate this company. Companies whose bids are within range (i.e. less than what is offered) are allowed to go on as passed. This means that when a new bid comes through the API, the BaseBid has to be more than the company Bid in the database.
+3.  <b>BaseBid check:</b> This checks the BaseBid supplied to the API against the bid stored for a company in the database. If the company's bid is higher, we eliminate this company. Companies whose bids are within range (i.e. less than what is offered) are allowed to go on as passed. This means that when a new bid comes through the API, the BaseBid has to be more than the company Bid in the database.
 
 When the check is complete we log the following message to file:
-    
-    BaseBid: {C1,Failed},{C2,Failed},{C3,Failed}
+
+BaseBid: {C1,Failed},{C2,Failed},{C3,Failed}
 
 Successful companies go on for shortlisting
 
-4. <b>Shortlisting:</b> Here we sort the successful companies by their Bid values. We return the highest value as the winner.
+4.  <b>Shortlisting:</b> Here we sort the successful companies by their Bid values. We return the highest value as the winner.
 
 The API caller returns the CompanyID as the winner and logs an output to the log file like so:
-    
-    Winner = C2
 
-5. <b>Reduce Budget:</b> Once the winner has been idenified, the company's bid is subtracted from the budget in the database.
+Winner = C2
 
+5.  <b>Reduce Budget:</b> Once the winner has been idenified, the company's bid is subtracted from the budget in the database.
 
 ## Tests
 
@@ -121,4 +120,3 @@ I have also included coverage reports as shown above indicating that the code is
 The coverage reports are generated and place in `<root folder>/app/coverage`
 
 I chose html and text so you can see the coverage on the console as well as in the browser.
-

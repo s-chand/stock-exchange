@@ -5,7 +5,7 @@ node_js:
 services:
   - docker
 before_install:
-   - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql stop
   - . ./bin/before_install.sh
 script:
   - yarn test
