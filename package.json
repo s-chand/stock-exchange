@@ -9,7 +9,7 @@
   },
   "scripts": {
     "pretest": "docker-compose rm --f; docker-compose build; docker-compose up -d --remove-orphans",
-    "test": "docker-compose exec exchange npm test",
+    "test": "docker-compose exec exchange npm run migration; docker-compose exec exchange npm test",
     "posttest": "docker-compose down",
     "prestart": "docker-compose build",
     "start": "docker-compose up"
