@@ -30,7 +30,7 @@
     "prune": "sequelize db:migrate:undo:all",
     "seed": "sequelize db:seed:all",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --reporter spec --recursive test/ --exit && npm run coverage",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls -v"
   },
   "nyc": {
     "exclude": [
