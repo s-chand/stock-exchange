@@ -2,7 +2,7 @@ const chai = require("chai");
 const expect = chai.expect;
 const exchangeLogic = require("../exchange/index");
 
-const {mockDb} = require("./mockdata")
+const { mockDb } = require("./mockdata");
 
 describe("Stock Exchange Logic Unit Tests ", () => {
     describe(" == Base Targeting tests ==", () => {
@@ -94,7 +94,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
             );
             // We expect an empty array
             expect(outcome).to.deep.equal([]);
-            expect(outcome.length).to.equal(0)
+            expect(outcome.length).to.equal(0);
         });
     });
 
