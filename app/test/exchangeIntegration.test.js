@@ -96,7 +96,7 @@ describe("Integration Tests", () => {
                 );
             });
     });
-    it("should reduce the C3 company budget on successful selection as winner from 3 dollars to 2.95 dollars 💵 💵", () => {
+    it("should reduce the C3 company budget on successful selection as winner from 3 dollars to 2.91 dollars 💵 💵", () => {
         return chai
             .request(app)
             .get("/api?countrycode=US&Category=Automobile&BaseBid=9")
@@ -105,9 +105,9 @@ describe("Integration Tests", () => {
                 expect(response.body).to.equal("C3");
                 // 🍺 🍺 🍺 works!
                 // then let's get the C3 company new budget and compare it
-                // default C3 budget is 3 dollars. We expect that this is reduced to (C3 budget of 3 dollars minues C3 Bid value of 5 cents)
+                // default C3 budget is 3 dollars. We expect that this is reduced to (C3 budget of 3 dollars minues Bid value of 5 cents)
                 const c3budget = 3; //dollars
-                const c3BidValue = 5; // cents
+                const c3BidValue = 9; // cents
                 const expectedBudget = c3budget - c3BidValue / 100;
                 companyModel.Company.find({
                     where: {
