@@ -6,13 +6,12 @@
   "license": "MIT",
   "scripts": {
     "pretest": "docker-compose up -d",
-    "test": "NODE_ENV=test npm run clearDB; NODE_ENV=test npm run migrate; NODE_ENV=test npm run seed; NODE_ENV=test docker-compose exec exchange npm run test",
-    "posttest": "npm run coverage; docker-compose down",
+    "test": "NODE_ENV=test docker-compose exec exchange npm run test",
+    "posttest": "docker-compose down",
     "prestart": "docker-compose build",
     "start": "docker-compose up",
     "migrate": "docker-compose exec exchange npm run migration",
     "seed": "docker-compose exec exchange npm run seed",
-    "clearDB": "docker-compose exec exchange npm run prune",
     "docs": "./node_modules/.bin/jsdoc ./app/**",
     "coverage": "docker-compose exec exchange npm run coverage"
   },
