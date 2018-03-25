@@ -69,9 +69,11 @@ Asides the directories listed above, the following files are also present:
 
 ## How the code works
 
-The API was implemented following the below specifications:
+When `npm start` is run, nodeJS creates worker threads using the number of cores available on the machine as the total number of starting threads. It uses nodeJS's cluster to fork the workers.
 
-A bid is submitted via an API call passing the following paramteres
+In terms of logic, the API was implemented following these specifications.
+
+A bid is submitted via an API call passing the following paramters:
 
     * Country (query parameter = countrycode)
     * BaseBid (query parameter = BaseBid)
@@ -116,7 +118,7 @@ In order to run the tests, I have included a number of options depending on your
 
 The following command is available to make this a smooth processs:
 
-    - npm test
+    npm test
 
 The test command brings up the containers and executes the unit and integration tests within the container while logging the spec reports to the console and the test outcomes to the log file.
 I have also included coverage reports as shown above indicating that the code is well covered.
@@ -146,12 +148,22 @@ The following are a complete list of tools used:
 5. Language and frameworks
     * NodeJS
     * ExpressJS
-6. Others
+6. Documentation
+    * jsdoc
+7. Others
     * travis
     * postman
     * jshint
     * git
     * bash scripts
+
+## Available commands
+
+* `npm run docs` - Generates the docs for the API functions into a `out` directory in the project root
+
+* `npm test` - Starts and runs the application tests
+
+* `npm start` - Starts the API workers on port 3000
 
 ## Notes
 
