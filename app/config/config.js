@@ -3,7 +3,7 @@ module.exports = {
   development: {
     username: process.env.PGUSER || 'postgres',
     password: process.env.PGPASSWORD || 'password',
-    database: process.env.PGDATABASE || 'company',
+    database: process.env.PGDATABASE || 'stockexchange',
     host: process.env.PGHOST || 'postgres',
     port: process.env.PGPORT || 5432,
     dialect: 'postgres',

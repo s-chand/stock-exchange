@@ -1,7 +1,3 @@
 DROP DATABASE IF EXISTS "stockexchange";
 CREATE DATABASE "stockexchange";
 GRANT ALL PRIVILEGES ON DATABASE "stockexchange" TO postgres;
-
-DROP DATABASE IF EXISTS "test";
-CREATE DATABASE "test";
-GRANT ALL PRIVILEGES ON DATABASE "test" TO postgres;

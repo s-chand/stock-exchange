@@ -35,7 +35,7 @@ describe("Integration Tests", () => {
         });
     });
 
-    it("should return 'Winner = C3'", () => {
+    it("should return 'Winner = C3' 🍺 🍺 ", () => {
         return chai
             .request(app)
             .get("/api?countrycode=US&Category=Automobile&BaseBid=9")
@@ -45,7 +45,7 @@ describe("Integration Tests", () => {
             });
     });
 
-    it("should fail for Targeting", () => {
+    it("should fail for Targeting 🎉 🎉", () => {
         return chai
             .request(app)
             .get("/api?countrycode=NG&Category=Food&BaseBid=10")
@@ -94,6 +94,31 @@ describe("Integration Tests", () => {
                 expect(err.response.body.message).to.equal(
                     "Incorrect data supplied. Please check and retry"
                 );
+            });
+    });
+    it("should reduce the C3 company budget on successful selection as winner from 3 dollars to 2.95 dollars 💵 💵", () => {
+        return chai
+            .request(app)
+            .get("/api?countrycode=US&Category=Automobile&BaseBid=9")
+            .then(response => {
+                // We expect the result to be C3
+                expect(response.body).to.equal("C3");
+                // 🍺 🍺 🍺 works!
+                // then let's get the C3 company new budget and compare it
+                // default C3 budget is 3 dollars. We expect that this is reduced to (C3 budget of 3 dollars minues C3 Bid value of 5 cents)
+                const c3budget = 3; //dollars
+                const c3BidValue = 5; // cents
+                const expectedBudget = c3budget - c3BidValue / 100;
+                companyModel.Company.find({
+                    where: {
+                        CompanyID: "C3"
+                    }
+                }).then(result => {
+                    // 🍺 cheers!
+                    //Let's assert against what we got back
+                    const company = JSON.parse(JSON.stringify(result));
+                    expect(parseFloat(company.Budget)).to.equal(expectedBudget);
+                });
             });
     });
 });
