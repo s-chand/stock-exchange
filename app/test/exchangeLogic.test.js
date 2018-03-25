@@ -94,6 +94,7 @@ describe("Stock Exchange Logic Unit Tests ", () => {
             );
             // We expect an empty array
             expect(outcome).to.deep.equal([]);
+            expect(outcome.length).to.equal(0)
         });
     });
 

@@ -1,7 +1,9 @@
 # Stock Exchange
 
 The following is a documentation on what this code base entails.
+[![Coverage Status](https://coveralls.io/repos/github/s-chand/stock-exchange/badge.svg?branch=master)](https://coveralls.io/github/s-chand/stock-exchange?branch=master)
 
+[![Build Status](https://travis-ci.org/s-chand/stock-exchange.svg?branch=master)](https://travis-ci.org/s-chand/stock-exchange)
 ## Installation
 
     Please follow these installation steps carefully.
@@ -107,7 +109,7 @@ Using these with values as query paramters to call the API endpoint, the API ext
 
     `Winner = C2`
 
-5. **Reduce Budget:** Once the winner has been idenified, the company's bid is subtracted from the budget in the database.
+5. **Reduce Budget:** Once the winner has been idenified, the bid is subtracted from the budget in the database.
 
 ## Tests
 
@@ -169,7 +171,7 @@ The following are a complete list of tools used:
 
 A couple of thoughts on improving this setup but weren't added so as not to `over-engineer` the solution as well as some decisions I have made regarding tools:
 
-* Add nginx to load balance requests in addition to the implemented nodeJS clusters in use. This would dramatically improve the ability to handle multiple concurrent transactions.
+* Adding nginx to load balance requests in addition to the implemented nodeJS clusters in use. This would dramatically improve the ability to handle multiple concurrent transactions. Also is the 
 
 * The logic for Budget and BaseBid check, based on the specifications, makes no mention of cases where the supplied baseBid exceeds the budget available for a company. The temptation to include this was strong but the document doesn't account for this edge case as it didn't indicate how to handle this use case. So I have left it open.
 

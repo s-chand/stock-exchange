@@ -152,8 +152,8 @@ const shortListCompany = companies => {
  * @param {Object} company - the winner of the bid
  * @returns {Promise} a promise from the database operation
  */
-const reduceBudget = company => {
-    const currentBid = parseFloat(company.Bid);
+const reduceBudget = (company, bid) => {
+    const currentBid = parseFloat(bid);
     const currentBudget = parseFloat(company.Budget);
     const newBudget = currentBudget - convertCentsToDollars(currentBid);
 
@@ -267,7 +267,7 @@ const receiveRequest = (req, res) => {
 
             const winner = shortListCompany(companyList);
 
-            reduceBudget(winner).then(updateResult => {
+            reduceBudget(winner, BaseBid).then(updateResult => {
                 return res.json(`${winner.CompanyID}`);
             });
         });
