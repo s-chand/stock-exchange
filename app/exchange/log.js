@@ -1,11 +1,24 @@
 const fs = require("fs");
 const os = require("os");
 
-//  Write the output to file for cases wheen
+/** 
+ * Handles all application logging
+ * @class Logger
+ */
 class Logger {
+    
+    /**
+     * @constructor
+     * @param {string} path 
+     */
     constructor(path) {
         this.path = path;
     }
+     /**
+      * Writes messages to log file
+      * @function writeToLogFile
+      * @param {string} messageToLog 
+      */
     writeToLogFile(messageToLog) {
         try {
             fs.appendFileSync(this.path, messageToLog + os.EOL);
@@ -13,36 +26,34 @@ class Logger {
             /* Handle the error */
         }
     }
+
+    /**
+     * Receives the messages to be logged from the different checks
+     * @function logger
+     * @param {string[]} resultCollection 
+     * @param {string} check 
+     */
     logger(resultCollection, check) {
         const messageToLog = `${check}: ${resultCollection.join(",")}`;
         this.writeToLogFile(messageToLog);
     }
+    
+    /** Writes logs for the winner
+     * @function winnerLog
+     * @param {Object} winner 
+     */
     winnerLog(winner) {
         const messageToLog = `Winner = ${winner.CompanyID}`;
         this.writeToLogFile(messageToLog);
     }
+
+    /**
+     * Clears the logs. This is used by the tests.
+     * @function clearLogs
+     */
     clearLogs() {
         fs.truncateSync(this.path, 0);
     }
 }
-
-// const writeToLogFile = message => {
-//     // TODO: handle file writing to the logs folder using the fs module based on NODE_ENV
-//     try {
-//         fs.appendFileSync("/tmp/logs/log.txt", message + os.EOL);
-//     } catch (err) {
-//         /* Handle the error */
-//         throw err;
-//     }
-// };
-// exports.logger = (resultCollection, check) => {
-//     const messageToLog = `${check}: ${resultCollection.join(",")}`;
-//     writeToLogFile(messageToLog);
-// };
-
-// exports.winnerLog = winner => {
-//     const messageToLog = `Winner = ${winner.CompanyID}`;
-//     writeToLogFile(messageToLog);
-// };
 
 module.exports = Logger;
