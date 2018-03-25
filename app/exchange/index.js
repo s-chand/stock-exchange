@@ -23,8 +23,9 @@ const checks = {
 };
 
 /**
- * @function checkBaseTargeting 
  * This function receives a list of companies as well as the country code and category to filter the list by
+ * @function checkBaseTargeting 
+ * 
  * @param {Object[]} companies array of company objects
  * @param {string} countrycode
  * @param {string} Category
@@ -58,7 +59,7 @@ const checkBaseTargeting = (companies, countrycode, Category) => {
     return successList;
 };
 
-/** Checks base bid
+/** This function checks base bid supplied against companies bid prices
  * @function checkBaseBid
  * @param {Object[]} companies 
  * @param {string} bid 

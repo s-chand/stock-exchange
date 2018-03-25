@@ -10,8 +10,12 @@
     "posttest": "docker-compose down",
     "prestart": "docker-compose build",
     "start": "docker-compose up",
-    "migrate":"docker-compose exec exchange npm run migration",
-    "seed":"docker-compose exec exchange npm run seed",
-    "clearDB": "docker-compose exec exchange npm run prune"
+    "migrate": "docker-compose exec exchange npm run migration",
+    "seed": "docker-compose exec exchange npm run seed",
+    "clearDB": "docker-compose exec exchange npm run prune",
+    "docs": "./node_modules/.bin/jsdoc ./app/**"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.5.5"
   }
 }
