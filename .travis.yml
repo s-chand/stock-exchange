@@ -4,6 +4,7 @@ node_js:
   - "node"
 services:
   - docker
+  - postgresql
 before_install:
   - sudo /etc/init.d/postgresql stop
   - . ./bin/before_install.sh
