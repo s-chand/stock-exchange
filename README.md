@@ -1,7 +1,7 @@
 # Stock Exchange
 
 The following is a documentation on what this code base entails.
-[![Coverage Status](https://coveralls.io/repos/github/s-chand/stock-exchange/badge.png?branch=master)](https://coveralls.io/github/s-chand/stock-exchange?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/s-chand/stock-exchange/badge.svg?branch=master)](https://coveralls.io/github/s-chand/stock-exchange?branch=master)
 [![Build Status](https://travis-ci.org/s-chand/stock-exchange.png?branch=master)](https://travis-ci.org/s-chand/stock-exchange)
 
 ## Installation
